@@ -7,6 +7,7 @@ public class Plateau {
 	public int[][] bonus;
 	public Jetons[][] lettres;
 	
+	//commentaire fait depuis git
 	public Plateau(){
 		int i;
 		int j;

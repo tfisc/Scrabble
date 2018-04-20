@@ -14,7 +14,7 @@ public class Jetons {
 	private int valeur;
 
 	public Jetons(char lettre, int val)  {
-		image =  new ImageIcon("images/"+lettre+".png");
+		image =  new ImageIcon("images/Lettres/"+lettre+".png");
 		//this.image=img;
 		this.setLettre(lettre);
 		setValeur(val);
@@ -53,18 +53,18 @@ public class Jetons {
 	public static void main (String[] args) {
 		
 		
-		Jetons A=new Jetons('a',1);
-		Jetons B=new Jetons('a',1);
+		
+		Jetons B=new Jetons('b',1);
+		
 		
 		
 		// fenêtre où l'image sera affichée
 		JFrame maFenetre = new JFrame("Test");
 		// ajoute l'image dans un JLabel
-		maFenetre.getContentPane().add(new JLabel(A.getImage()));
+		maFenetre.getContentPane().add(new JLabel(B.getImage()));
 		maFenetre.setBounds(1024/4,768/4,500,300);
 		maFenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		maFenetre.show();
-		System.out.println(B.getId());
      
 		
 	}

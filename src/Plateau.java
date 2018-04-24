@@ -101,6 +101,10 @@ public class Plateau {
 		return remplissage[i][j];
 	}
 	
+	public void setRemplissage(int i, int j) {
+			this.remplissage[i][j]=true;
+	}
+	
 	@SuppressWarnings("unchecked")//ça sert juste à enlever les warnings de morts
 	public ArrayList<Boolean> getRemplissages(int idebut,int jdebut, int ifin,int jfin) {
 		@SuppressWarnings("rawtypes")
@@ -123,28 +127,28 @@ public class Plateau {
 		return rep;
 	}
 
-	//tout le long pour les vérifications j'estime qu'une case vide a un bonus de 0
-		public boolean caseValide(int i, int j) { //j'estime que la case sélectionnée par le jour est donnée sous ses coordonnées i et j
+	public boolean caseValide(int i, int j) { //j'estime que la case sélectionnée par le jour est donnée sous ses coordonnées i et j
 			
 			//si c'est la case de départ et qui est vide
-			if(i==8 && j==8 && bonus[i][j]!=0) {
+			if(i==8 && j==8 && getRemplissage(i,j)==false) {
 				return true;
 			}
 			
 			//si la case est déjà prise
-			if(bonus[i][j]==0) {
+			if(getRemplissage(i,j)==true) {
 				return false;
 			}
 			
 			//si case vide et sans rien autour
-			if(bonus[i][j]!=0 && bonus[i+1][j]!=0 && bonus[i-1][j]!=0 && bonus[i][j-1]!=0 && bonus[i][j+1]!=0) {
+			if(getRemplissage(i,j)==false && getRemplissage(i+1,j)==false && getRemplissage(i-1,j)==false && getRemplissage(i,j+1)==false && getRemplissage(i,j-1)==false) {
 				return false;
 			}
 			
 			//si case vide et au moins une lettre autour
-			if(bonus[i][j]!=0 && (bonus[i+1][j]==0 || bonus[i-1][j]==0 || bonus[i][j-1]==0 || bonus[i][j+1]==0)) {
+			if(getRemplissage(i,j)==false && (getRemplissage(i+1,j)==true || getRemplissage(i-1,j)==true || getRemplissage(i,j+1)==true || getRemplissage(i,j-1)==true)) {
 				return true;
 			}
+			return false; //pour que la méthode marche, retour "poubelle"
 		}
 		
 		public boolean placeDisponible(int nbLettres, int i, int j, int d) { //j'estime que la méthode récupère le nombre de lettres sélectionnées par le joueur et les coordonnées de la case de départ sélectionnée et la direction (0 pour en bas, 1 pour à droite); 			
@@ -156,7 +160,7 @@ public class Plateau {
 				//initialisation du curseur au niveau de la ligne de la case de départ sélectionnée
 				curseur=i;
 				while(curseur!=15) {
-					if(bonus[curseur][j]!=0) {
+					if(getRemplissage(curseur,j)==true) {
 						caseR ++;
 					}
 					curseur ++;
@@ -171,7 +175,7 @@ public class Plateau {
 			if(d==1) {
 				curseur=j;
 				while(curseur!=15) {
-					if(bonus[i][curseur]!=0) {
+					if(getRemplissage(i,curseur)==true) {
 						caseR ++;
 					}
 					if(caseR>=nbLettres) {
@@ -195,89 +199,170 @@ public class Plateau {
 		}
 		
 		
-		public boolean motAtourValide(int i, int j) {
-		//on suppose qu'une case déjà utilisée par une lettre sur la plateau a un bonus égal à 0	
+		public boolean motAtourValide(int i, int j, int d) { //d est la direction 0 pour en bas, 1 pour à droite
+	
 			String motVerif = "";
 			int curseur1=0;
+			int idep=i, jdep=j;
+			
+			//si la direction choisie est vers le bas, faire le déplacement vers le bas
+			if(d==0) {
+				while(getRemplissage(idep,j)==true) {
 			
 			//case de départ du mot joué (qu'on va appeler case d'origine) a une lettre voisine à gauche et pas à droite ou aussi à droite
-			if (bonus[i][j-1]!=0) {
-				
-				//initialisation du curseur au début du mot voisin de gauche et du mot à vérifier à vide
-				motVerif="";
-				curseur1=j;
-				while(bonus[i][curseur1]!=0) {
-					curseur1=curseur1-1;
-				}
-				
-				//parcours du mot jusqu'à la fin et construction du mot à vérifier
-				while(bonus[i][curseur1]!=0) {
-					motVerif = motVerif + lettreCase(i,curseur1); //lettreCase est une méthode qui permet de retourner la lettre posée sur la case sous forme de String
-					curseur1=curseur1+1;
-				}
-				
-				//si mot à vérifier faux, retourne faux
-				if(Test(motVerif)==false) {
-					return false;
+					if (getRemplissage(i,j-1)==true) {
+						
+						//initialisation du curseur au début du mot voisin de gauche et du mot à vérifier à vide
+						motVerif="";
+						curseur1=j;
+						while(getRemplissage(i,curseur1)==true) {
+							curseur1=curseur1-1;
+						}
+						
+						//parcours du mot jusqu'à la fin et construction du mot à vérifier
+						while(getRemplissage(i,curseur1)==true) {
+							motVerif = motVerif +  lettres[i][curseur1].getLettre(); //lettreCase est une méthode qui permet de retourner la lettre posée sur la case sous forme de String
+							curseur1=curseur1+1;
+						}
+						
+						//si mot à vérifier faux, retourne faux
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					
+					//case d'origine a une lettre voisine à droite et pas à gauche
+					if(getRemplissage(i,j-1)==true && getRemplissage(i,j+1)==false) {
+						motVerif="";
+						curseur1=j;
+						
+						//parcours du mot jusqu'à la fin et construction du mot à vérifier
+						while(getRemplissage(i,curseur1)==false) {
+							motVerif=motVerif + lettres[i][curseur1].getLettre();
+							curseur1 ++;
+						}
+						
+						//si mot à vérifier faux, retourne faux
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					
+					//case d'origine a une lettre voisine en haut et pas en bas ou aussi en bas
+					
+					if(getRemplissage(i-1,j)==false) {
+						motVerif="";
+						curseur1=i;
+						while(getRemplissage(curseur1,j)==false) {
+							curseur1 --;
+						}
+						
+						while(getRemplissage(curseur1,j)==false) {
+							motVerif=motVerif + lettres[curseur1][j].getLettre();
+							curseur1 ++;
+						}
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					
+					if(getRemplissage(i+1,j)==false) {
+						motVerif="";
+						curseur1=i;
+						
+						while(getRemplissage(curseur1,j)==false) {
+							motVerif=motVerif + lettres[curseur1][j].getLettre();
+							curseur1 ++;
+						}
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					idep ++;
 				}
 			}
 			
-			//case d'origine a une lettre voisine à droite et pas à gauche
-			if(bonus[i][j-1]==0 && bonus[i][j+1]!=0) {
-				motVerif="";
-				curseur1=j;
-				
-				//parcours du mot jusqu'à la fin et construction du mot à vérifier
-				while(bonus[i][curseur1]!=0) {
-					motVerif=motVerif + lettreCase(i,curseur1);
-					curseur1 ++;
-				}
-				
-				//si mot à vérifier faux, retourne faux
-				if(Test(motVerif)=false) {
-					return false;
+			//si la direction choisie est vers la droite, faire le déplacement vers la droite
+			if(d==1) {
+				while(getRemplissage(i,jdep)==true) {
+			
+			//case de départ du mot joué (qu'on va appeler case d'origine) a une lettre voisine à gauche et pas à droite ou aussi à droite
+					if (getRemplissage(i,j-1)==true) {
+						
+						//initialisation du curseur au début du mot voisin de gauche et du mot à vérifier à vide
+						motVerif="";
+						curseur1=j;
+						while(getRemplissage(i,curseur1)==true) {
+							curseur1=curseur1-1;
+						}
+						
+						//parcours du mot jusqu'à la fin et construction du mot à vérifier
+						while(getRemplissage(i,curseur1)==true) {
+							motVerif = motVerif +  lettres[i][curseur1].getLettre(); //lettreCase est une méthode qui permet de retourner la lettre posée sur la case sous forme de String
+							curseur1=curseur1+1;
+						}
+						
+						//si mot à vérifier faux, retourne faux
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					
+					//case d'origine a une lettre voisine à droite et pas à gauche
+					if(getRemplissage(i,j-1)==true && getRemplissage(i,j+1)==false) {
+						motVerif="";
+						curseur1=j;
+						
+						//parcours du mot jusqu'à la fin et construction du mot à vérifier
+						while(getRemplissage(i,curseur1)==false) {
+							motVerif=motVerif + lettres[i][curseur1].getLettre();
+							curseur1 ++;
+						}
+						
+						//si mot à vérifier faux, retourne faux
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					
+					//case d'origine a une lettre voisine en haut et pas en bas ou aussi en bas
+					
+					if(getRemplissage(i-1,j)==false) {
+						motVerif="";
+						curseur1=i;
+						while(getRemplissage(curseur1,j)==false) {
+							curseur1 --;
+						}
+						
+						while(getRemplissage(curseur1,j)==false) {
+							motVerif=motVerif + lettres[curseur1][j].getLettre();
+							curseur1 ++;
+						}
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					
+					if(getRemplissage(i+1,j)==false) {
+						motVerif="";
+						curseur1=i;
+						
+						while(getRemplissage(curseur1,j)==false) {
+							motVerif=motVerif + lettres[curseur1][j].getLettre();
+							curseur1 ++;
+						}
+						if(Test(motVerif)==false) {
+							return false;
+						}
+					}
+					jdep ++;
 				}
 			}
 			
-			//case d'origine a une lettre voisine en haut et pas en bas ou aussi en bas
-			
-			if(bonus[i-1][j]!=0) {
-				motVerif="";
-				curseur1=i;
-				while(bonus[curseur1][j]!=0) {
-					curseur1 --;
-				}
-				
-				while(bonus[curseur1][j]!=0) {
-					motVerif=motVerif + lettreCase(curseur1,j);
-					curseur1 ++;
-				}
-				if(Test(motVerif)==false) {
-					return false;
-				}
-			}
-			
-			if(bonus[i+1][j]!=0) {
-				motVerif="";
-				curseur1=i;
-				
-				while(bonus[curseur1][j]!=0) {
-					motVerif=motVerif+lettreCase(cuseur1,j);
-					curseur1 ++;
-				}
-				if(Test(motVerif)==false) {
-					return false;
-				}
-			}
 			return true;
 		}
-		
-		public boolean poseMotValide() {
-		}
 	
-	
-	
-	
+			
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

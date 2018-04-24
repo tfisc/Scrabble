@@ -42,7 +42,7 @@ public Affichage() {
 	
 		try {
 			System.out.println("****");
-			myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\score_planet.png"));
+			myPicture = ImageIO.read(new File("images/score_planet.png"));
 		} catch (IOException e) {
 			System.out.println("****");
 			// TODO Auto-generated catch block
@@ -64,7 +64,7 @@ public Affichage() {
 		
 			try {
 				System.out.println("****");
-				myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\score_txt_score.png"));
+				myPicture = ImageIO.read(new File("images/score_txt_score.png"));
 			} catch (IOException e) {
 				System.out.println("****");
 				// TODO Auto-generated catch block
@@ -85,7 +85,7 @@ public Affichage() {
 			
 				try {
 					System.out.println("****");
-					myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\score_bar.png"));
+					myPicture = ImageIO.read(new File("images/score_bar.png"));
 				} catch (IOException e) {
 					System.out.println("****");
 					// TODO Auto-generated catch block
@@ -106,7 +106,7 @@ public Affichage() {
 				
 					try {
 						System.out.println("****");
-						myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\game_bar.png"));
+						myPicture = ImageIO.read(new File("images/game_bar.png"));
 					} catch (IOException e) {
 						System.out.println("****");
 						// TODO Auto-generated catch block
@@ -126,7 +126,7 @@ public Affichage() {
 					
 					try {
 						System.out.println("****");
-						myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\game_pick_empty.png"));
+						myPicture = ImageIO.read(new File("images/game_pick_empty.png"));
 					} catch (IOException e) {
 						System.out.println("****");
 						// TODO Auto-generated catch block
@@ -148,7 +148,7 @@ public Affichage() {
 					
 						try {
 							System.out.println("****");
-							myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\game_pick_empty.png"));
+							myPicture = ImageIO.read(new File("images/menu.png"));
 						} catch (IOException e) {
 							System.out.println("****");
 							// TODO Auto-generated catch block
@@ -170,7 +170,7 @@ public Affichage() {
 	
 		try {
 			System.out.println("****");
-			myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\board.png"));
+			myPicture = ImageIO.read(new File("images/board.png"));
 		} catch (IOException e) {
 			System.out.println("****");
 			// TODO Auto-generated catch block
@@ -196,7 +196,7 @@ public Affichage() {
 			
 				try {
 					System.out.println("****");
-					myPicture = ImageIO.read(new File("C:\\Users\\Nicolas\\eclipse-workspace\\affichage\\background.png"));
+					myPicture = ImageIO.read(new File("images/background.png"));
 				} catch (IOException e) {
 					System.out.println("****");
 					// TODO Auto-generated catch block

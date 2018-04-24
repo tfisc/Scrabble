@@ -202,7 +202,7 @@ public class Plateau {
 		public boolean motAtourValide(int i, int j, int d) { //d est la direction 0 pour en bas, 1 pour à droite
 	
 			String motVerif = "";
-			int curseur1=0;
+			int curseur=0;
 			int idep=i, jdep=j;
 			
 			//si la direction choisie est vers le bas, faire le déplacement vers le bas
@@ -214,15 +214,15 @@ public class Plateau {
 						
 						//initialisation du curseur au début du mot voisin de gauche et du mot à vérifier à vide
 						motVerif="";
-						curseur1=j;
-						while(getRemplissage(i,curseur1)==true) {
-							curseur1=curseur1-1;
+						curseur=j;
+						while(getRemplissage(i,curseur)==true) {
+							curseur=curseur-1;
 						}
 						
 						//parcours du mot jusqu'à la fin et construction du mot à vérifier
-						while(getRemplissage(i,curseur1)==true) {
-							motVerif = motVerif +  lettres[i][curseur1].getLettre(); //lettreCase est une méthode qui permet de retourner la lettre posée sur la case sous forme de String
-							curseur1=curseur1+1;
+						while(getRemplissage(i,curseur)==true) {
+							motVerif = motVerif +  lettres[i][curseur].getLettre(); //lettreCase est une méthode qui permet de retourner la lettre posée sur la case sous forme de String
+							curseur=curseur+1;
 						}
 						
 						//si mot à vérifier faux, retourne faux
@@ -234,12 +234,12 @@ public class Plateau {
 					//case d'origine a une lettre voisine à droite et pas à gauche
 					if(getRemplissage(i,j-1)==true && getRemplissage(i,j+1)==false) {
 						motVerif="";
-						curseur1=j;
+						curseur=j;
 						
 						//parcours du mot jusqu'à la fin et construction du mot à vérifier
-						while(getRemplissage(i,curseur1)==false) {
-							motVerif=motVerif + lettres[i][curseur1].getLettre();
-							curseur1 ++;
+						while(getRemplissage(i,curseur)==false) {
+							motVerif=motVerif + lettres[i][curseur].getLettre();
+							curseur ++;
 						}
 						
 						//si mot à vérifier faux, retourne faux
@@ -252,14 +252,14 @@ public class Plateau {
 					
 					if(getRemplissage(i-1,j)==false) {
 						motVerif="";
-						curseur1=i;
-						while(getRemplissage(curseur1,j)==false) {
-							curseur1 --;
+						curseur=i;
+						while(getRemplissage(curseur,j)==false) {
+							curseur --;
 						}
 						
-						while(getRemplissage(curseur1,j)==false) {
-							motVerif=motVerif + lettres[curseur1][j].getLettre();
-							curseur1 ++;
+						while(getRemplissage(curseur,j)==false) {
+							motVerif=motVerif + lettres[curseur][j].getLettre();
+							curseur ++;
 						}
 						if(Test(motVerif)==false) {
 							return false;
@@ -268,11 +268,11 @@ public class Plateau {
 					
 					if(getRemplissage(i+1,j)==false) {
 						motVerif="";
-						curseur1=i;
+						curseur=i;
 						
-						while(getRemplissage(curseur1,j)==false) {
-							motVerif=motVerif + lettres[curseur1][j].getLettre();
-							curseur1 ++;
+						while(getRemplissage(curseur,j)==false) {
+							motVerif=motVerif + lettres[curseur][j].getLettre();
+							curseur ++;
 						}
 						if(Test(motVerif)==false) {
 							return false;
@@ -291,15 +291,15 @@ public class Plateau {
 						
 						//initialisation du curseur au début du mot voisin de gauche et du mot à vérifier à vide
 						motVerif="";
-						curseur1=j;
-						while(getRemplissage(i,curseur1)==true) {
-							curseur1=curseur1-1;
+						curseur=j;
+						while(getRemplissage(i,curseur)==true) {
+							curseur=curseur-1;
 						}
 						
 						//parcours du mot jusqu'à la fin et construction du mot à vérifier
-						while(getRemplissage(i,curseur1)==true) {
-							motVerif = motVerif +  lettres[i][curseur1].getLettre(); //lettreCase est une méthode qui permet de retourner la lettre posée sur la case sous forme de String
-							curseur1=curseur1+1;
+						while(getRemplissage(i,curseur)==true) {
+							motVerif = motVerif +  lettres[i][curseur].getLettre(); //lettreCase est une méthode qui permet de retourner la lettre posée sur la case sous forme de String
+							curseur=curseur+1;
 						}
 						
 						//si mot à vérifier faux, retourne faux
@@ -311,12 +311,12 @@ public class Plateau {
 					//case d'origine a une lettre voisine à droite et pas à gauche
 					if(getRemplissage(i,j-1)==true && getRemplissage(i,j+1)==false) {
 						motVerif="";
-						curseur1=j;
+						curseur=j;
 						
 						//parcours du mot jusqu'à la fin et construction du mot à vérifier
-						while(getRemplissage(i,curseur1)==false) {
-							motVerif=motVerif + lettres[i][curseur1].getLettre();
-							curseur1 ++;
+						while(getRemplissage(i,curseur)==false) {
+							motVerif=motVerif + lettres[i][curseur].getLettre();
+							curseur ++;
 						}
 						
 						//si mot à vérifier faux, retourne faux
@@ -329,14 +329,14 @@ public class Plateau {
 					
 					if(getRemplissage(i-1,j)==false) {
 						motVerif="";
-						curseur1=i;
-						while(getRemplissage(curseur1,j)==false) {
-							curseur1 --;
+						curseur=i;
+						while(getRemplissage(curseur,j)==false) {
+							curseur --;
 						}
 						
-						while(getRemplissage(curseur1,j)==false) {
-							motVerif=motVerif + lettres[curseur1][j].getLettre();
-							curseur1 ++;
+						while(getRemplissage(curseur,j)==false) {
+							motVerif=motVerif + lettres[curseur][j].getLettre();
+							curseur ++;
 						}
 						if(Test(motVerif)==false) {
 							return false;
@@ -345,11 +345,11 @@ public class Plateau {
 					
 					if(getRemplissage(i+1,j)==false) {
 						motVerif="";
-						curseur1=i;
+						curseur=i;
 						
-						while(getRemplissage(curseur1,j)==false) {
-							motVerif=motVerif + lettres[curseur1][j].getLettre();
-							curseur1 ++;
+						while(getRemplissage(curseur,j)==false) {
+							motVerif=motVerif + lettres[curseur][j].getLettre();
+							curseur ++;
 						}
 						if(Test(motVerif)==false) {
 							return false;

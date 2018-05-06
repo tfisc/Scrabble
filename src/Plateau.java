@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class Plateau {
@@ -9,6 +15,8 @@ public class Plateau {
 	
 	//commentaire fait depuis git
 	public Plateau(){
+		remplissage=new boolean[15][15];
+		bonus =new int[15][15];
 		int i;
 		int j;
 		//initialisation de remplissage
@@ -30,12 +38,12 @@ public class Plateau {
 		}
 		//placement des mots compte compte triple (valeur 4 choisi arbitrairement)
 		bonus[0][0]=4;
-		bonus[0][15]=4;
+		bonus[0][14]=4;
 		bonus[7][0]=4;
-		bonus[7][15]=4;
-		bonus[15][0]=4;
-		bonus[15][7]=4;
-		bonus[15][15]=4;
+		bonus[7][14]=4;
+		bonus[14][0]=4;
+		bonus[14][7]=4;
+		bonus[14][14]=4;
 		//placement des mots compte double 
 		bonus[1][1]=3;
 		bonus[2][2]=3;
@@ -125,6 +133,24 @@ public class Plateau {
 				}
 			}
 		return rep;
+	}
+	
+	public void setRemplissages(int idebut,int jdebut, int ifin,int jfin) {
+		int j=jdebut;
+		int i= idebut;
+		if(idebut==ifin) {
+			for(j = 0; j < jfin; j++) {
+				remplissage[idebut][j]=true;
+				
+			}
+		}
+			
+			if(jdebut==jfin) {
+				for(i = 0; i < ifin; i++) {
+					remplissage[i][jfin]=true;
+					
+				}
+			}
 	}
 
 	public boolean caseValide(int i, int j) { //j'estime que la case sélectionnée par le jour est donnée sous ses coordonnées i et j
@@ -361,11 +387,55 @@ public class Plateau {
 			
 			return true;
 		}
-	
+	public boolean Test(String mot)
+	{
+				boolean found =false;
+			
+				
+			try {
+				File fileDir = new File("images/ListeMots.txt");
+					
+				BufferedReader in = new BufferedReader(
+				   new InputStreamReader(
+		                      new FileInputStream(fileDir), "UTF16"));
+				        
+				String str;
+				      
+				while ((str = in.readLine()) != null && found==false) {
+				
+					
+		            System.out.println(str);
+		           if (str.equals(mot)) {
+		        	   		found=true;
+		           }
+				}
+				        
+		                in.close();
+		                
+		                return found;
+			}
+			    catch (UnsupportedEncodingException e) 
+			    {
+					System.out.println(e.getMessage());
+			    } 
+			    catch (IOException e) 
+			    {
+					System.out.println(e.getMessage());
+			    }
+			    catch (Exception e)
+			    {
+					System.out.println(e.getMessage());
+			    }
+	return found;		
+	}
+		
 			
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		boolean retour;
+		Plateau p1=new Plateau();
+		System.out.println(p1.bonus[3][0]);
+		System.out.println(p1.remplissage[3][0]);
 	}
 
 }

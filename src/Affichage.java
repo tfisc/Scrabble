@@ -25,6 +25,17 @@ import javax.swing.JPanel;
 
 public class Affichage extends JPanel implements MouseListener{
 	
+	
+	JFrame fenetre;
+	
+	JLabel flecheHaut;
+	
+	JLabel flecheBas;
+	
+	JLabel flecheDroite;
+	
+	JLabel flecheGauche;
+	
 	private ImageIcon plateau;
 	private Image plateauimg;
 	
@@ -49,12 +60,33 @@ public class Affichage extends JPanel implements MouseListener{
 	private ImageIcon pick;
 	private Image pickimg;
 	
+	private ImageIcon topArrow;
+	private Image topArrowimg;
+	
+	private ImageIcon bottomArrow;
+	private Image bottomArrowimg;
+	
+	private ImageIcon rightArrow;
+	private Image rightArrowimg;
+	
+	private ImageIcon leftArrow;
+	private Image leftArrowimg;
+	
+	private JButton lettre1;
+	private JButton lettre2;
+	private JButton lettre3;
+	private JButton lettre5;
+	private JButton lettre6;
+	private JButton lettre7;
+	
+	
 	
 	
 	
 	
 public Affichage() {
 	super();
+	this.setLayout(null);
 	plateau=new ImageIcon(getClass().getResource("/images/board.png"));
 	plateauimg=plateau.getImage();
 	
@@ -79,8 +111,77 @@ public Affichage() {
 	pick=new ImageIcon(getClass().getResource("/images/game_pick_empty.png"));
 	pickimg=pick.getImage();
 
+	topArrow=new ImageIcon(getClass().getResource("/images/Arrows/arrow_red_3.png"));
+	topArrowimg=topArrow.getImage();
+	
+	bottomArrow=new ImageIcon(getClass().getResource("/images/Arrows/arrow_red_1.png"));
+	bottomArrowimg=bottomArrow.getImage();
+	
+	rightArrow=new ImageIcon(getClass().getResource("/images/Arrows/arrow_red_4.png"));
+	rightArrowimg=rightArrow.getImage();
+	
+	leftArrow=new ImageIcon(getClass().getResource("/images/Arrows/arrow_red_2.png"));
+	leftArrowimg=leftArrow.getImage();
+	
+	flecheHaut=new JLabel("");
+	flecheHaut.setIcon(topArrow);
+	
+	flecheBas=new JLabel("");
+	flecheBas.setIcon(bottomArrow);
+	
+	flecheDroite=new JLabel("");
+	flecheDroite.setIcon(rightArrow);
+	
+	
+	flecheGauche=new JLabel("");
+	flecheGauche.setIcon(leftArrow);
+	JButton lettre1=new JButton();
+	JButton lettre2=new JButton();
+	JButton lettre3=new JButton();
+	JButton lettre4=new JButton();
+	JButton lettre5=new JButton();
+	JButton lettre6=new JButton();
+	JButton lettre7=new JButton();
+	lettre1.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/s.png")));
+	lettre2.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/c.png")));
+	lettre3.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/r.png")));
+	lettre4.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/a.png")));
+	lettre5.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/b.png")));
+	lettre6.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/l.png")));
+	lettre7.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/e.png")));
+	lettre1.setBounds(800, 670, 48, 48);
+	lettre2.setBounds(850, 670, 48, 48);
+	lettre3.setBounds(900, 670, 48, 48);
+	lettre4.setBounds(950, 670, 48, 48);
+	lettre5.setBounds(1000, 670, 48, 48);
+	lettre6.setBounds(1050, 670, 48, 48);
+	lettre7.setBounds(1100, 670, 48, 48);
+	
+	validate();
+	
+	this.add(lettre1);
+	this.add(lettre2);
+	this.add(lettre3);
+	this.add(lettre4);
+	this.add(lettre5);
+	this.add(lettre6);
+	this.add(lettre7);
+	
+	
+	
 
-	  }   
+	fenetre=new JFrame("Scrabble");
+    fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    fenetre.setSize(1300, 769);
+    fenetre.setLocationRelativeTo(null);
+    fenetre.setResizable(false);
+    fenetre.setAlwaysOnTop(true);
+    
+    fenetre.setContentPane(this);
+    fenetre.setVisible(true);	
+    
+   
+}   
 
 
 public void paintComponent(Graphics g) {
@@ -100,15 +201,7 @@ public void paintComponent(Graphics g) {
 public static void main(String[] args){
     
     Affichage test=new Affichage();
-	JFrame fenetre=new JFrame("Scrabble");
-    fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    fenetre.setSize(1300, 769);
-    fenetre.setLocationRelativeTo(null);
-    fenetre.setResizable(false);
-    fenetre.setAlwaysOnTop(true);
-    
-    fenetre.setContentPane(test);
-    fenetre.setVisible(true);
+	
     
    
    
@@ -126,9 +219,9 @@ public void mouseClicked(MouseEvent e) {
 	xclick=e.getX();
 	yclick=e.getY();
 	if(xclick<=730 && yclick<=730) {
-		xclick=xclick/49;
-		yclick=yclick/49;
-		System.out.println("vous avez cliqué sur la case "+xclick+","+yclick);
+		xclick=xclick/48;
+		yclick=yclick/48;
+		affichagefleches(xclick,yclick);
 	}
 	else {
 		System.out.println("vous n'avez pas cliqué sur le plateau");
@@ -136,6 +229,27 @@ public void mouseClicked(MouseEvent e) {
 	}
 	
 }
+public void affichagefleches(int x, int y){
+	System.out.println("tu rentres");
+	x=x*48;
+	y=y*48;
+	flecheHaut.setBounds(x+6, y-30,37,26);
+	flecheBas.setBounds(x+4, y+55,37,26);
+	flecheDroite.setBounds(x+48,y+8,26,37);
+	flecheGauche.setBounds(x-30, y+8,26,37);
+
+	
+		this.add(flecheHaut);
+	
+		this.add(flecheBas);
+	
+		this.add(flecheGauche);
+	
+	this.add(flecheDroite);
+
+}
+
+
 
 
 @Override

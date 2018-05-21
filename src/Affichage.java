@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,9 +22,100 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Affichage {
+public class Affichage extends JPanel{
+	
+	private ImageIcon plateau;
+	private Image plateauimg;
+	
+	private ImageIcon menu;
+	private Image menuimg;
+	
+	private ImageIcon background;
+	private Image backgroundimg;
+	
+	private ImageIcon score;
+	private Image scoreimg;
+	
+	private ImageIcon scoretxt;
+	private Image scoretxtimg;
+	
+	private ImageIcon scorebar;
+	private Image scorebarimg;
+	
+	private ImageIcon gamebar;
+	private Image gamebarimg;
+	
+	private ImageIcon pick;
+	private Image pickimg;
+	
+	
+	
+	
+	
+public Affichage() {
+	super();
+	plateau=new ImageIcon(getClass().getResource("/images/board.png"));
+	plateauimg=plateau.getImage();
+	
+	menu=new ImageIcon(getClass().getResource("/images/menu.png"));
+	menuimg=menu.getImage();
+	
+	background=new ImageIcon(getClass().getResource("/images/background.png"));
+	backgroundimg=background.getImage();
+	
+	score=new ImageIcon(getClass().getResource("/images/score_planet.png"));
+	scoreimg=score.getImage();
 
-private static JPanel plateau,background,saturne,score,barrescore,barrejoueur,pioche,menu;
+	scoretxt=new ImageIcon(getClass().getResource("/images/score_txt_score.png"));
+	scoretxtimg=scoretxt.getImage();
+	
+	scorebar=new ImageIcon(getClass().getResource("/images/score_bar.png"));
+	scorebarimg=scorebar.getImage();
+	
+	gamebar=new ImageIcon(getClass().getResource("/images/score_bar.png"));
+	gamebarimg=gamebar.getImage();
+	
+	pick=new ImageIcon(getClass().getResource("/images/game_pick_empty.png"));
+	pickimg=pick.getImage();
+
+	  }   
+
+
+public void paintComponent(Graphics g) {
+	super.paintComponent(g);
+	g.drawImage(backgroundimg, 0,0, null);
+	g.drawImage(plateauimg, 0,0, null);
+	g.drawImage(menuimg, 1190,0, null);
+	g.drawImage(scoreimg,830,230, null);
+	g.drawImage(scoretxtimg,905,240, null);
+	g.drawImage(scorebarimg,1020,250, null);
+	g.drawImage(gamebarimg,800,720, null);
+	g.drawImage(pickimg,1200,650, null);
+	
+}
+public static void main(String[] args){
+    
+    Affichage test=new Affichage();
+	JFrame fenetre=new JFrame("Scrabble");
+    fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    fenetre.setSize(1300, 769);
+    fenetre.setLocationRelativeTo(null);
+    fenetre.setResizable(false);
+    fenetre.setAlwaysOnTop(true);
+    
+    fenetre.setContentPane(test);
+    fenetre.setVisible(true);
+   
+    
+  
+
+
+}
+}
+
+
+
+/*private static JPanel plateau,background,saturne,score,barrescore,barrejoueur,pioche,menu;
 
 public Affichage() {
 	
@@ -230,16 +323,4 @@ public Affichage() {
 	    menu.setBounds(1247, 20, 104, 41);
 	    
 	    //myPannel.setLocation(20, 20);
-	    fenetre.setVisible(true);
-	  }   
-
-public static void main(String[] args){
-    
-    Affichage test = new Affichage();
-   
-    
-  
-
-
-}
-}
+	    fenetre.setVisible(true);*/

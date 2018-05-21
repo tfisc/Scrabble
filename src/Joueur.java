@@ -66,7 +66,11 @@ public class Joueur {
 			  while(i<tab.size()) {
 				  this.j.add(tab.get(i));
 				  i++;
+			  }
 				  }
+			  
+			  public void ajoutJeton(Jetons jeton) {
+				 j.add(jeton);
 			  }
 		  }
 		  

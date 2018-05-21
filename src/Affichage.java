@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,18 +24,28 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Affichage extends JPanel implements MouseListener{
+public class Affichage extends JPanel {
 	
 	
-	JFrame fenetre;
+	private JFrame fenetre;
 	
-	JLabel flecheHaut;
+	private JLabel flecheHaut;
 	
-	JLabel flecheBas;
+	private JLabel flecheBas;
 	
-	JLabel flecheDroite;
+	private JLabel flecheDroite;
 	
-	JLabel flecheGauche;
+	private JLabel flecheGauche;
+	
+	private JLabel mot;
+	private JLabel mot1;
+	private JLabel mot2;
+	private JLabel mot3;
+	private JLabel mot4;
+	private JLabel mot5;
+	private JLabel mot6;
+	
+	
 	
 	private ImageIcon plateau;
 	private Image plateauimg;
@@ -75,13 +86,38 @@ public class Affichage extends JPanel implements MouseListener{
 	private JButton lettre1;
 	private JButton lettre2;
 	private JButton lettre3;
+	private JButton lettre4;
 	private JButton lettre5;
 	private JButton lettre6;
 	private JButton lettre7;
 	
 	
+	public JButton getLettre1() {
+		return lettre1;
+	}
 	
+	public JButton getLettre2() {
+		return lettre3;
+	}
 	
+	public JButton getLettre3() {
+		return lettre3;
+	}
+	
+	public JButton getLettre4() {
+		return lettre4;
+	}
+	public JButton getLettre5() {
+		return lettre5;
+	}
+	
+	public JButton getLettre6() {
+		return lettre6;
+	}
+	
+	public JButton getLettre7() {
+		return lettre7;
+	}
 	
 	
 public Affichage() {
@@ -135,13 +171,13 @@ public Affichage() {
 	
 	flecheGauche=new JLabel("");
 	flecheGauche.setIcon(leftArrow);
-	JButton lettre1=new JButton();
-	JButton lettre2=new JButton();
-	JButton lettre3=new JButton();
-	JButton lettre4=new JButton();
-	JButton lettre5=new JButton();
-	JButton lettre6=new JButton();
-	JButton lettre7=new JButton();
+	lettre1=new JButton();
+	lettre2=new JButton();
+	lettre3=new JButton();
+	lettre4=new JButton();
+	lettre5=new JButton();
+	lettre6=new JButton();
+	lettre7=new JButton();
 	lettre1.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/s.png")));
 	lettre2.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/c.png")));
 	lettre3.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/r.png")));
@@ -166,7 +202,20 @@ public Affichage() {
 	this.add(lettre5);
 	this.add(lettre6);
 	this.add(lettre7);
+	this.add(flecheHaut);
 	
+	this.add(flecheBas);
+
+	this.add(flecheGauche);
+	mot=new JLabel("");
+	mot1=new JLabel("");
+	mot2=new JLabel("");
+	mot3=new JLabel("");
+	mot4=new JLabel("");
+	mot5=new JLabel("");
+	mot6=new JLabel("");
+
+this.add(flecheDroite);
 	
 	
 
@@ -175,7 +224,7 @@ public Affichage() {
     fenetre.setSize(1300, 769);
     fenetre.setLocationRelativeTo(null);
     fenetre.setResizable(false);
-    fenetre.setAlwaysOnTop(true);
+   
     
     fenetre.setContentPane(this);
     fenetre.setVisible(true);	
@@ -194,41 +243,80 @@ public void paintComponent(Graphics g) {
 	g.drawImage(scorebarimg,1020,250, null);
 	g.drawImage(gamebarimg,800,720, null);
 	g.drawImage(pickimg,1200,650, null);
-	this.addMouseListener(this);
+
 	
 }
 
-public static void main(String[] args){
-    
-    Affichage test=new Affichage();
+
+public void affichageLettresJoueurCourant(ArrayList<Jetons> jetons) {
+	lettre1.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(0).getLettre()+".png")));
+	lettre2.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(1).getLettre()+".png")));
+	lettre3.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(2).getLettre()+".png")));
+	lettre4.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(3).getLettre()+".png")));
+	lettre5.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(4).getLettre()+".png")));
+	lettre6.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(5).getLettre()+".png")));
+	lettre7.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(6).getLettre()+".png")));
 	
-    
-   
-   
-    
-  
-
-
+	
 }
 
-
-@Override
-public void mouseClicked(MouseEvent e) {
-	int xclick;
-	int yclick;
-	xclick=e.getX();
-	yclick=e.getY();
-	if(xclick<=730 && yclick<=730) {
-		xclick=xclick/48;
-		yclick=yclick/48;
-		affichagefleches(xclick,yclick);
-	}
-	else {
-		System.out.println("vous n'avez pas cliqué sur le plateau");
+public void affichageLettresPlateau(ArrayList<Jetons> jetons,int x,int y) {
+	
+	x=x*48;
+	y=y*48;
+	if(jetons.size()>=1) {
+		mot.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(0).getLettre()+".png")));
+		mot.setBounds(x+(0*0)-48,y,48,48);
 		
-	}
+		this.add(mot);
+		
+		}
+	if(jetons.size()>=2) {
+		mot1.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(1).getLettre()+".png")));
+		mot1.setBounds(x+(1*48)-48,y,48,48);
+		
+		this.add(mot1);
+		
+		}
+	if(jetons.size()>=3) {
+		mot2.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(2).getLettre()+".png")));
+		mot2.setBounds(x+(2*48)-48,y,48,48);
+		
+		this.add(mot2);
+		
+		}
+	if(jetons.size()>=4) {
+		mot3.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(3).getLettre()+".png")));
+		mot3.setBounds(x+(3*48)-48,y,48,48);
+		
+		this.add(mot3);
+		
+		}
+	if(jetons.size()>=5) {
+		mot4.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(4).getLettre()+".png")));
+		mot4.setBounds(x+(4*48)-48,y,48,48);
+		
+		this.add(mot4);
 	
-}
+		}
+	if(jetons.size()>=6) {
+		mot5.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(5).getLettre()+".png")));
+		mot5.setBounds(x+(5*48)-48,y,48,48);
+		
+		this.add(mot5);
+		
+		}
+	if(jetons.size()>=7) {
+		mot6.setIcon(new ImageIcon(getClass().getResource("/images/Lettres/"+jetons.get(6).getLettre()+".png")));
+		mot6.setBounds(x+(6*48)-48,y,48,48);
+		
+		this.add(mot6);
+		
+		}
+	revalidate();
+	}
+
+
 public void affichagefleches(int x, int y){
 	System.out.println("tu rentres");
 	x=x*48;
@@ -246,38 +334,17 @@ public void affichagefleches(int x, int y){
 		this.add(flecheGauche);
 	
 	this.add(flecheDroite);
+	revalidate();
 
 }
 
 
 
 
-@Override
-public void mousePressed(MouseEvent e) {
-	// TODO Auto-generated method stub
-	
-}
 
 
-@Override
-public void mouseReleased(MouseEvent e) {
-	// TODO Auto-generated method stub
-	
-}
 
 
-@Override
-public void mouseEntered(MouseEvent e) {
-	// TODO Auto-generated method stub
-	
-}
-
-
-@Override
-public void mouseExited(MouseEvent e) {
-	// TODO Auto-generated method stub
-	
-}
 }
 
 

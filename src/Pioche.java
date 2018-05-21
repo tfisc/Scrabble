@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Pioche{
 	
-	 ArrayList<String> listejeton = new ArrayList<String>();
+	 ArrayList<Jetons> listejeton = new ArrayList<Jetons>();
 	 
 
 	public Pioche() {
@@ -12,113 +12,113 @@ public class Pioche{
 		
 		for(int i=0;i<=8;i++)
 		{
-			this.listejeton.add("A");
+			this.listejeton.add(new Jetons('a',1));
 		}
 		for(int i=0;i<=1;i++)
 		{
-			this.listejeton.add("B");
+			this.listejeton.add(new Jetons('b',3));
 		}
 		for(int i=0;i<=1;i++)
 		{
-			this.listejeton.add("C");
+			this.listejeton.add(new Jetons('c',3));
 		}
 		for(int i=0;i<=2;i++)
 		{
-			this.listejeton.add("D");
+			this.listejeton.add(new Jetons('d',2));
 		}
 		for(int i=0;i<=14;i++)
 		{
-			this.listejeton.add("E");
+			this.listejeton.add(new Jetons('e',1));
 		}
 		for(int i=0;i<=1;i++)
 		{
-			this.listejeton.add("F");
+			this.listejeton.add(new Jetons('f',4));
 		}
 		for(int i=0;i<=1;i++)
 		{
-			this.listejeton.add("G");
+			this.listejeton.add(new Jetons('g',2));
 		}
 		for(int i=0;i<=1;i++)
 		{
-			this.listejeton.add("H");
+			this.listejeton.add(new Jetons('h',4));
 		}
 		for(int i=0;i<=7;i++)
 		{
-			this.listejeton.add("I");
+			this.listejeton.add(new Jetons('i',1));
 		}
 
-		this.listejeton.add("J");
+		this.listejeton.add(new Jetons('j',8));
 		
-		this.listejeton.add("K");
+		this.listejeton.add(new Jetons('k',10));
 		
 		for(int i=0;i<=4;i++)
 		{
-			this.listejeton.add("L");
+			this.listejeton.add(new Jetons('l',1));
 		}
 		for(int i=0;i<=2;i++)
 		{
-			this.listejeton.add("M");
+			this.listejeton.add(new Jetons('m',2));
 		}
 		for(int i=0;i<=5;i++)
 		{
-			this.listejeton.add("N");
+			this.listejeton.add(new Jetons('n',1));
 		}
 		for(int i=0;i<=5;i++)
 		{
-			this.listejeton.add("O");
+			this.listejeton.add(new Jetons('o',1));
 		}
 		for(int i=0;i<=1;i++)
 		{
-			this.listejeton.add("P");
+			this.listejeton.add(new Jetons('p',3));
 		}
 
-		this.listejeton.add("Q");
+		this.listejeton.add(new Jetons('q',8));
 		
 		for(int i=0;i<=5;i++)
 		{
-			this.listejeton.add("R");
+			this.listejeton.add(new Jetons('r',1));
 		}
 		for(int i=0;i<=5;i++)
 		{
-			this.listejeton.add("S");
+			this.listejeton.add(new Jetons('s',1));
 		}
 		for(int i=0;i<=5;i++)
 		{
-			this.listejeton.add("T");
+			this.listejeton.add(new Jetons('t',1));
 		}
 		for(int i=0;i<=5;i++)
 		{
-			this.listejeton.add("U");
+			this.listejeton.add(new Jetons('u',1));
 		}
 		for(int i=0;i<=1;i++)
 		{
-			this.listejeton.add("V");
+			this.listejeton.add(new Jetons('v',4));
 		}
 		
-		this.listejeton.add("W");
-		this.listejeton.add("X");
-		this.listejeton.add("Y");
-		this.listejeton.add("Z");
+		this.listejeton.add(new Jetons('w',10));
+		this.listejeton.add(new Jetons('x',10));
+		this.listejeton.add(new Jetons('y',10));
+		this.listejeton.add(new Jetons('z',10));
 		
 	}
 	
-	public String piochejeton() {
+	public Jetons piochejeton() {
 		int nb = (int) (Math.random() * listejeton.size() );
 		
-		String jetonpioche = listejeton.get(nb);
+		Jetons jetonpioche = listejeton.get(nb);
 		listejeton.remove(nb);
 		return(jetonpioche);
 	}
 	
-	public ArrayList<String> piocheplusieur(int n) {
+	public ArrayList<Jetons> piocheplusieur(int n) {
 		
-		ArrayList<String> jetons = new ArrayList<String>();
+		ArrayList<Jetons> jetons = new ArrayList<Jetons>();
 		
 		for (int i=0;i<n;i++)
 		{
 		int nb = (int) (Math.random() * listejeton.size() );
 		
-		String jetonpioche = listejeton.get(nb);
+		Jetons jetonpioche = listejeton.get(nb);
 		jetons.add(jetonpioche);
 		listejeton.remove(nb);
 		
@@ -127,14 +127,14 @@ public class Pioche{
 	
 	}
 	
-	public void remetunjeton(String jeton) {
+	public void remetunjeton(Jetons jeton) {
 		this.listejeton.add(jeton);
 	}
 	
-	public void remetplusieursjeton(ArrayList<String> jetons,int n) {
+	public void remetplusieursjeton(ArrayList<Jetons> jetons,int n) {
 		for (int i=0;i<n;i++)
 		{
-		String jetonpioche = jetons.get(0);
+		Jetons jetonpioche = jetons.get(0);
 		listejeton.remove(0);
 		this.listejeton.add(jetonpioche);
 		}
